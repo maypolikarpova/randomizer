@@ -8,10 +8,9 @@ namespace Randomizer
     /// </summary>
     public partial class App
     {
-        protected override void OnStartup(StartupEventArgs e)
+        private void Application_Exit(object sender, ExitEventArgs e)
         {
-            base.OnStartup(e);
-            StationManager.Initialize();
+            StationManager.CloseApp();
         }
     }
 }

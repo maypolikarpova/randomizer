@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Randomizer.Managers;
@@ -21,6 +22,7 @@ namespace Randomizer.ViewModels
         #region Commands
         private ICommand _addRequestCommand;
         private ICommand _deleteRequestCommand;
+        private ICommand _logOutCommand;
         #endregion
         #endregion
 
@@ -43,11 +45,23 @@ namespace Randomizer.ViewModels
             }
         }
 
+        public ICommand LogOutCommand
+        {
+            get
+            {
+                return _logOutCommand ?? (_logOutCommand = new RelayCommand<KeyEventArgs>(LogOutExecute));
+            }
+        }
         #endregion
 
         public ObservableCollection<Request> Requests
         {
             get { return _requests; }
+            set
+            {
+                _requests = value;
+                OnPropertyChanged();
+            }
         }
 
         public Request SelectedRequest
@@ -89,6 +103,7 @@ namespace Randomizer.ViewModels
             PropertyChanged += OnPropertyChanged;
         }
         #endregion
+
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             if (propertyChangedEventArgs.PropertyName == "SelectedRequest")
@@ -115,34 +130,50 @@ namespace Randomizer.ViewModels
             if (SelectedRequest == null) return;
 
             StationManager.CurrentUser.Requests.RemoveAll(uwr => uwr.Guid == SelectedRequest.Guid);
+            DBManager.UpdateUser(StationManager.CurrentUser);
             FillRequests();
             OnPropertyChanged(nameof(SelectedRequest));
             OnPropertyChanged(nameof(Requests));
         }
 
-        private void AddRequestExecute(object o)
+        private async void AddRequestExecute(object o)
         {
-            try
+            LoaderManager.Instance.ShowLoader();
+            await Task.Run(() =>
             {
-                Request request = new Request(_startNumber, _endNumber, StationManager.CurrentUser);
-                if (!request.IsValidRequest())
+                try
                 {
-                    MessageBox.Show(Resources.SignUp_FailedToValidateData);
+                        Request request = new Request(_startNumber, _endNumber, StationManager.CurrentUser);
+                        if (!request.IsValidRequest())
+                        {
+                            MessageBox.Show(String.Format("Wrongs numbers! Start number should be greater or equal 0, end number should be greater than 0 and start number"));
+                            LoaderManager.Instance.HideLoader();
+                            return;
+                        }
+                    Application.Current.Dispatcher.Invoke(delegate
+                    {
+                        _requests.Add(request);
+                        _selectedRequest = request;
+                        return;
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                     return;
                 }
-                _requests.Add(request);
-                _selectedRequest = request;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
-                    ex.Message));
-                return;
-            }
+            });
+            LoaderManager.Instance.HideLoader();
         }
-        
+
+        private void LogOutExecute(KeyEventArgs args)
+        {
+            _requests.Clear();
+            NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+        }
+
         #region EventsAndHandlers
-        #region Loader
+            #region Loader
         internal event RequestChangedHandler RequestChanged;
         internal delegate void RequestChangedHandler(Request request);
 

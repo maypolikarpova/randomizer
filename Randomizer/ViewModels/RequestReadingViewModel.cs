@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Randomizer.Managers;
 using Randomizer.Models;
 using Randomizer.Properties;
 
@@ -51,7 +52,7 @@ namespace Randomizer.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ISet<int> Sequence
+        public IList<int> Sequence
         {
             get { return _currentRequest.Sequence; }
             set
@@ -74,6 +75,7 @@ namespace Randomizer.ViewModels
         [NotifyPropertyChangedInvocator]
         internal virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            DBManager.UpdateUser(StationManager.CurrentUser);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion

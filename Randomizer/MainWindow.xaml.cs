@@ -1,6 +1,10 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows.Controls;
 using Randomizer.Managers;
 using Randomizer.Tools;
+using Randomizer.ViewModels;
 
 namespace Randomizer
 {
@@ -14,7 +18,9 @@ namespace Randomizer
             InitializeComponent();
             var navigationModel = new NavigationModel(this);
             NavigationManager.Instance.Initialize(navigationModel);
-            navigationModel.Navigate(ModesEnum.SignIn);
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            DataContext = mainWindowViewModel;
+            mainWindowViewModel.StartApplication();
         }
 
         public ContentControl ContentControl

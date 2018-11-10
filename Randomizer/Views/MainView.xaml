@@ -14,8 +14,12 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <ListBox Grid.Row="0"  ItemsSource="{Binding Requests}" SelectedItem="{Binding SelectedRequest}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Margin="2">
@@ -27,12 +31,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <controls:LabelAndTextControl Grid.Row="1" Caption="Start Number" Margin="5" 
+        <controls:LabelAndTextControl Grid.Row="2" Caption="Start Number" Margin="5" 
                                 Text="{Binding StartNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <controls:LabelAndTextControl Grid.Row="2" Caption="End Number" Margin="5" 
+        <controls:LabelAndTextControl Grid.Row="3" Caption="End Number" Margin="5" 
                                 Text="{Binding EndNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-        <Button Content="Generate Sequence" Command="{Binding AddRequestCommand}" Grid.Row="3"/>
-        
-        
+        <Button Content="Generate Sequence" Command="{Binding AddRequestCommand}" Grid.Row="4"/>
+        <Button Content="Log Out" Command="{Binding LogOutCommand}" Grid.Row="6"/>
     </Grid>
 </UserControl>

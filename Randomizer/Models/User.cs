@@ -4,6 +4,7 @@ using Randomizer.Tools;
 
 namespace Randomizer.Models
 {
+    [Serializable]
     public class User
     {
         #region Const
@@ -108,7 +109,7 @@ namespace Randomizer.Models
             {
                 return _requests;
             }
-            private set
+            set
             {
                 _requests = value;
             }
@@ -138,22 +139,33 @@ namespace Randomizer.Models
 
         private void SetPassword(string password)
         {
-            _password = Encrypting.EncryptText(password, PublicKey);
+            _password = Encrypting.GetMd5HashForString(password);
         }
         public bool CheckPassword(string password)
         {
             try
             {
-                string res = Encrypting.DecryptString(_password, PrivateKey);
-                string res2 = Encrypting.GetMd5HashForString(password);
-                return res == res2;
+                string res = Encrypting.GetMd5HashForString(password);
+                return _password == res;
             }
             catch (Exception)
             {
                 return false;
             }
         }
-        
+    
+        public bool CheckPassword(User userCandidate)
+        {
+            try
+            {
+                return _password == userCandidate._password;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public override string ToString()
         {
             return $"{LastName} {FirstName}";

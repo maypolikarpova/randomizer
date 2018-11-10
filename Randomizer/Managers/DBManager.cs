@@ -1,35 +1,55 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Randomizer.Models;
+using Randomizer.Tools;
 
 namespace Randomizer.Managers
 {
-    public class DBManager
+    internal class DBManager
     {
-        private static readonly List<User> Users = new List<User>();
+        private static readonly List<User> Users;
 
         static DBManager()
         {
+            Users = SerializationManager.Deserialize<List<User>>(FileFolderHelper.StorageFilePath) ?? new List<User>();
             Users.Add(new User("May", "Polikarpova", "may@mail.com", "may", "zzz"));
             Users.Add(new User("Sofia", "Rylyuk", "sofia@mail.com", "sofia", "zzz"));
         }
 
-        public static bool UserExists(string login)
+        internal static bool UserExists(string login)
         {
             return Users.Any(u => u.Login == login);
         }
 
-        public static User GetUserByLogin(string login)
+        internal static User GetUserByLogin(string login)
         {
             return Users.FirstOrDefault(u => u.Login == login);
         }
 
-        public static void AddUser(User user)
+        internal static void AddUser(User user)
         {
             Users.Add(user);
+            SaveChanges();
         }
-        
-        
+
+        private static void SaveChanges()
+        {
+            SerializationManager.Serialize(Users, FileFolderHelper.StorageFilePath);
+        }
+
+        internal static User CheckCachedUser(User userCandidate)
+        {
+            var userInStorage = Users.FirstOrDefault(u => u.Guid == userCandidate.Guid);
+            if (userInStorage != null && userInStorage.CheckPassword(userCandidate))
+                return userInStorage;
+            return null;
+
+        }
+        public static void UpdateUser(User currentUser)
+        {
+            SaveChanges();
+        }
     }
-}
+ }
 

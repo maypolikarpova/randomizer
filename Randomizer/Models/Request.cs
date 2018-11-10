@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Randomizer.Models
 {
+    [Serializable]
     public class Request
     {
         #region Fields
@@ -11,7 +13,7 @@ namespace Randomizer.Models
         private int _startNumber;
         private int _endNumber;
         private int _generatedAmount;
-        private ISet<int> _sequence;
+        private IList<int> _sequence;
         #endregion
 
         #region Properties
@@ -40,11 +42,12 @@ namespace Randomizer.Models
             get { return _generatedAmount; }
             set { _generatedAmount = value; }
         }
-        public ISet<int> Sequence
+        public IList<int> Sequence
         {
             get { return _sequence; }
             set { _sequence = value; }
         }
+
         #endregion
 
         #region Constructor
@@ -58,36 +61,53 @@ namespace Randomizer.Models
             _sequence = GenerateSequence();
             user.Requests.Add(this);
         }
+
         private Request()
-        {
-        }
+        {}
         #endregion
+
         public override string ToString()
         {
             return String.Format("Start Number: {0}, End Number: {1}, Request Date: {2}, Generated Amount: {3}", 
                 StartNumber, EndNumber, Date, GeneratedAmount); 
         }
 
-        private ISet<int> GenerateSequence()
+        private IList<int> GenerateSequence()
         {
-           ISet<int> sequence = new HashSet<int>();
-           while(sequence.Count < _generatedAmount)
+            IList<int> sequence = new List<int>();
+            IList<int> initial = new List<int>();
+            Random random = new Random();
+
+            new Thread(() =>
             {
-                Random random = new Random();
-                int generated = random.Next(_startNumber, _endNumber + 1);
-                if (!sequence.Contains(generated))
+               Thread.CurrentThread.IsBackground = true;
+
+                for (int i = _startNumber; i < _endNumber; i++)
                 {
-                    sequence.Add(generated);
+                    initial.Add(i);
                 }
-            }
+
+                for (int i = _startNumber; i < _endNumber; i++)
+                {
+                    int position = random.Next(0, _generatedAmount - 1);
+                    if (sequence.Contains(initial[position]))
+                    { 
+                        while (sequence.Contains(initial[position]))
+                        {
+                            position = random.Next(0, _generatedAmount - 1);
+                        }
+                    }
+                    sequence.Add(initial[position]);
+                }
+            }).Start();
             return sequence;
         }
 
         public bool IsValidRequest()
         {
-            return _startNumber < _endNumber 
-                && _startNumber >= 0
-                && _endNumber > 0;
+            return _startNumber >= 0
+                && _endNumber > 0 
+                &&_startNumber < _endNumber;
         }
     }   
 }

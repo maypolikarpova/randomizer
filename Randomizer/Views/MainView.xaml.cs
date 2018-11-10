@@ -29,11 +29,14 @@ namespace Randomizer.Views
 
         private void OnRequestChanged(Models.Request request)
         {
+            if (request != null)
+            {
                 _currentRequestCreationView = new RequestReadingView(request);
                 MainGrid.Children.Add(_currentRequestCreationView);
                 Grid.SetRow(_currentRequestCreationView, 0);
                 Grid.SetRowSpan(_currentRequestCreationView, 2);
                 Grid.SetColumn(_currentRequestCreationView, 1);
+            }
         }
         
     }
