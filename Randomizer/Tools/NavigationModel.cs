@@ -35,7 +35,7 @@ namespace Randomizer.Tools
                     _contentWindow.ContentControl.Content = _signUpView ?? (_signUpView = new SignUpView());
                     break;
                 case ModesEnum.Main:
-                    _contentWindow.ContentControl.Content = _mainView ?? (_mainView = new MainView());
+                    _contentWindow.ContentControl.Content = _mainView = new MainView();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

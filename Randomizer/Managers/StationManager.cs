@@ -73,8 +73,11 @@ namespace Randomizer.Managers
 
         internal static void CloseApp()
         {
-            SerializationManager.Serialize(CurrentUser, FileFolderHelper.LastUserFilePath);
-            SerializationManager.Serialize(CurrentUser.Requests, FileFolderHelper.LastUserHistoryPath);
+            if(CurrentUser!=null)
+            {
+                SerializationManager.Serialize(CurrentUser, FileFolderHelper.LastUserFilePath);
+                SerializationManager.Serialize(CurrentUser.Requests, FileFolderHelper.LastUserHistoryPath);
+            }
             Environment.Exit(1);
         }
     }

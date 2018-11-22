@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
+using System.Linq;
 using System.Threading;
 
 namespace Randomizer.Models
@@ -14,6 +16,8 @@ namespace Randomizer.Models
         private int _endNumber;
         private int _generatedAmount;
         private IList<int> _sequence;
+        private Guid _userGuid;
+        private User _user;
         #endregion
 
         #region Properties
@@ -47,7 +51,26 @@ namespace Randomizer.Models
             get { return _sequence; }
             set { _sequence = value; }
         }
+        public string DBSequence
+        {
+            get
+            {
+                return String.Join(" ", Sequence);
+            }
+            set
+            {
+                Sequence = value.Split(' ').Select(int.Parse).ToList();
+            }
+        }
 
+        public Guid UserGuid { get => _userGuid; set => _userGuid = value; }
+
+        internal void DeleteDatabaseValues()
+        {
+            _user = null;
+        }
+
+        public User User { get => _user; set => _user = value; }
         #endregion
 
         #region Constructor
@@ -59,6 +82,8 @@ namespace Randomizer.Models
             _endNumber = endNumber;
             _generatedAmount = _endNumber - _startNumber + 1;
             _sequence = GenerateSequence();
+            _user = user;
+            _userGuid = user.Guid;
             user.Requests.Add(this);
         }
 
@@ -109,5 +134,35 @@ namespace Randomizer.Models
                 && _endNumber > 0 
                 &&_startNumber < _endNumber;
         }
-    }   
+
+        #region EntityFrameworkConfiguration
+        public class RequestEntityConfiguration : EntityTypeConfiguration<Request>
+        {
+            public RequestEntityConfiguration()
+            {
+                ToTable("Request");
+                HasKey(s => s.Guid);
+
+                Property(p => p.Guid)
+                    .HasColumnName("Guid")
+                    .IsRequired();
+                Property(p => p.Date)
+                    .HasColumnName("Date")
+                    .IsRequired();
+                Property(s => s.DBSequence)
+                    .HasColumnName("Sequence")
+                    .IsRequired();
+                Property(s => s.StartNumber)
+                    .HasColumnName("StartNumber")
+                    .IsRequired();
+                Property(s => s.EndNumber)
+                    .HasColumnName("EndNumber")
+                    .IsRequired();
+                Property(s => s.GeneratedAmount)
+                    .HasColumnName("GeneratedAmount")
+                    .IsRequired();
+            }
+        }
+        #endregion
+    }
 }

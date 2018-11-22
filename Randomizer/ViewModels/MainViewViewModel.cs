@@ -152,6 +152,7 @@ namespace Randomizer.ViewModels
                         }
                     Application.Current.Dispatcher.Invoke(delegate
                     {
+                        DBManager.AddRequest(request);
                         _requests.Add(request);
                         _selectedRequest = request;
                         return;

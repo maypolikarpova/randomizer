@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Randomizer.DBAdapter;
 using Randomizer.Models;
 using Randomizer.Tools;
 
@@ -19,18 +20,28 @@ namespace Randomizer.Managers
 
         internal static bool UserExists(string login)
         {
-            return Users.Any(u => u.Login == login);
+            return EntityWrapper.UserExists(login);
         }
 
         internal static User GetUserByLogin(string login)
         {
-            return Users.FirstOrDefault(u => u.Login == login);
+            var v = EntityWrapper.GetUserByLogin(login);
+            return v;
+        }
+
+        internal static User GetUsetByGuid(Guid guid)
+        {
+            return EntityWrapper.GetUserByGuid(guid);
         }
 
         internal static void AddUser(User user)
         {
-            Users.Add(user);
-            SaveChanges();
+            EntityWrapper.AddUser(user);
+        }
+
+        internal static void AddRequest(Request request)
+        {
+            EntityWrapper.AddRequest(request);
         }
 
         private static void SaveChanges()
@@ -40,7 +51,7 @@ namespace Randomizer.Managers
 
         internal static User CheckCachedUser(User userCandidate)
         {
-            var userInStorage = Users.FirstOrDefault(u => u.Guid == userCandidate.Guid);
+            var userInStorage = GetUsetByGuid(userCandidate.Guid);
             if (userInStorage != null && userInStorage.CheckPassword(userCandidate))
                 return userInStorage;
             return null;
@@ -48,7 +59,7 @@ namespace Randomizer.Managers
         }
         public static void UpdateUser(User currentUser)
         {
-            SaveChanges();
+            EntityWrapper.UpdateUser(currentUser);
         }
     }
  }

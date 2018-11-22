@@ -95,6 +95,7 @@ namespace Randomizer.ViewModels.Authentication
                 }
                 catch (Exception ex)
                 {
+                    LoaderManager.Instance.HideLoader();
                     MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
                         ex.Message));
                     return false;
