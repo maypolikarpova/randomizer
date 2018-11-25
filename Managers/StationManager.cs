@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Randomizer.Models;
+using Randomizer.DBModels;
 using Randomizer.Tools;
 
 namespace Randomizer.Managers
@@ -71,7 +71,7 @@ namespace Randomizer.Managers
             CurrentUser.Requests = requests;
         }
 
-        internal static void CloseApp()
+        public static void CloseApp()
         {
             if(CurrentUser!=null)
             {

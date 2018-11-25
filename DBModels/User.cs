@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Randomizer.Tools;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
-using Randomizer.Tools;
+using System.Runtime.Serialization;
 
-namespace Randomizer.Models
+namespace Randomizer.DBModels
 {
     [Serializable]
+    [DataContract(IsReference = true)]
     public class User
     {
         #region Const
@@ -14,13 +16,21 @@ namespace Randomizer.Models
         #endregion
 
         #region Fields
+        [DataMember]
         private Guid _guid;
+        [DataMember]
         private string _firstName;
+        [DataMember]
         private string _lastName;
+        [DataMember]
         private string _email;
+        [DataMember]
         private string _login;
+        [DataMember]
         private string _password;
+        [DataMember]
         private DateTime _lastLoginDate;
+        [DataMember]
         private List<Request> _requests;
         #endregion
 

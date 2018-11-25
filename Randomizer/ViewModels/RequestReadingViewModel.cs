@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Randomizer.Managers;
-using Randomizer.Models;
+using Randomizer.DBModels;
 using Randomizer.Properties;
 
 namespace Randomizer.ViewModels

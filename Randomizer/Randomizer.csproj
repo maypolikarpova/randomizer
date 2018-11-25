@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Randomizer</RootNamespace>
     <AssemblyName>Randomizer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -97,27 +98,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DBAdapter\EntityWrapper.cs" />
-    <Compile Include="DBAdapter\Migrations\Configuration.cs" />
-    <Compile Include="DBAdapter\RandomizerDBContext.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Managers\LoaderManager.cs" />
     <Compile Include="Managers\NavigationManager.cs" />
-    <Compile Include="Managers\DBManager.cs" />
-    <Compile Include="Managers\SerializationManager.cs" />
     <Compile Include="Migrations\201811222124398_Initial.cs" />
     <Compile Include="Migrations\201811222124398_Initial.Designer.cs">
       <DependentUpon>201811222124398_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Request.cs" />
-    <Compile Include="Tools\Encrypting.cs" />
-    <Compile Include="Tools\FileFolderHelper.cs" />
     <Compile Include="Tools\IContentWindow.cs" />
     <Compile Include="Tools\ILoaderOwner.cs" />
-    <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\NavigationModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="ViewModels\Authentication\SignUpViewModel.cs" />
@@ -131,7 +122,6 @@
     </Compile>
     <Compile Include="Tools\PasswordBoxAssistant.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Managers\StationManager.cs" />
     <Compile Include="ViewModels\Authentication\SignInViewModel.cs" />
     <Compile Include="Tools\Controls\LabelAndTextControl.xaml.cs">
       <DependentUpon>LabelAndTextControl.xaml</DependentUpon>
@@ -212,6 +202,24 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBAdapter\DBAdapter.csproj">
+      <Project>{ef08da7c-27ea-4355-97c1-bf95b4e3b1c0}</Project>
+      <Name>DBAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBModels\DBModels.csproj">
+      <Project>{b3724ea5-428b-4951-93eb-86cfcb60de00}</Project>
+      <Name>DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Managers\Managers.csproj">
+      <Project>{8693ac3f-f206-4f4b-bce8-65d0c0074233}</Project>
+      <Name>Managers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{33ba7218-6de6-4c26-8ea9-28ab41a004d1}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

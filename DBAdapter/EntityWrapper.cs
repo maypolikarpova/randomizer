@@ -1,4 +1,4 @@
-﻿using Randomizer.Models;
+﻿using Randomizer.DBModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

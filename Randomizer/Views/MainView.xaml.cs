@@ -27,7 +27,7 @@ namespace Randomizer.Views
             DataContext = _mainWindowViewModel;
         }
 
-        private void OnRequestChanged(Models.Request request)
+        private void OnRequestChanged(DBModels.Request request)
         {
             if (request != null)
             {

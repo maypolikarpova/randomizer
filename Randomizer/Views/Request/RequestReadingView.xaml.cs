@@ -7,7 +7,7 @@ namespace Randomizer.Views.Request
     /// </summary>
     public partial class RequestReadingView
     {
-        public RequestReadingView(Models.Request request)
+        public RequestReadingView(DBModels.Request request)
         {
             InitializeComponent();
             var requestModel = new RequestReadingViewModel(request);

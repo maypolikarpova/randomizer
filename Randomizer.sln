@@ -5,6 +5,18 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer", "Randomizer\Randomizer.csproj", "{6DE9FC7C-BD79-448F-A7A4-C5C468BD3F3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBModels", "DBModels\DBModels.csproj", "{B3724EA5-428B-4951-93EB-86CFCB60DE00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{33BA7218-6DE6-4C26-8EA9-28AB41A004D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managers", "Managers\Managers.csproj", "{8693AC3F-F206-4F4B-BCE8-65D0C0074233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAdapter", "DBAdapter\DBAdapter.csproj", "{EF08DA7C-27EA-4355-97C1-BF95B4E3B1C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomizerServiceInterface", "RandmizerServiceInterface\RandomizerServiceInterface.csproj", "{32BF08FB-6782-4C2C-9724-63064E7870CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomizerService", "RandomizerService\RandomizerService.csproj", "{5770548F-4D39-446B-948E-1B01AB450345}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +27,30 @@ Global
 		{6DE9FC7C-BD79-448F-A7A4-C5C468BD3F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DE9FC7C-BD79-448F-A7A4-C5C468BD3F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DE9FC7C-BD79-448F-A7A4-C5C468BD3F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3724EA5-428B-4951-93EB-86CFCB60DE00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3724EA5-428B-4951-93EB-86CFCB60DE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3724EA5-428B-4951-93EB-86CFCB60DE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3724EA5-428B-4951-93EB-86CFCB60DE00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33BA7218-6DE6-4C26-8EA9-28AB41A004D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33BA7218-6DE6-4C26-8EA9-28AB41A004D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33BA7218-6DE6-4C26-8EA9-28AB41A004D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33BA7218-6DE6-4C26-8EA9-28AB41A004D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8693AC3F-F206-4F4B-BCE8-65D0C0074233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8693AC3F-F206-4F4B-BCE8-65D0C0074233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8693AC3F-F206-4F4B-BCE8-65D0C0074233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8693AC3F-F206-4F4B-BCE8-65D0C0074233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF08DA7C-27EA-4355-97C1-BF95B4E3B1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF08DA7C-27EA-4355-97C1-BF95B4E3B1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF08DA7C-27EA-4355-97C1-BF95B4E3B1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF08DA7C-27EA-4355-97C1-BF95B4E3B1C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32BF08FB-6782-4C2C-9724-63064E7870CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32BF08FB-6782-4C2C-9724-63064E7870CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32BF08FB-6782-4C2C-9724-63064E7870CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32BF08FB-6782-4C2C-9724-63064E7870CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5770548F-4D39-446B-948E-1B01AB450345}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5770548F-4D39-446B-948E-1B01AB450345}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5770548F-4D39-446B-948E-1B01AB450345}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5770548F-4D39-446B-948E-1B01AB450345}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Randomizer.Managers;
-using Randomizer.Models;
+using Randomizer.DBModels;
 using Randomizer.Properties;
 using Randomizer.Tools;
 

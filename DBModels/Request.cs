@@ -2,21 +2,31 @@
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading;
 
-namespace Randomizer.Models
+namespace Randomizer.DBModels
 {
     [Serializable]
+    [DataContract(IsReference = true)]
     public class Request
     {
         #region Fields
+        [DataMember]
         private Guid _guid;
+        [DataMember]
         private DateTime _date;
+        [DataMember]
         private int _startNumber;
+        [DataMember]
         private int _endNumber;
+        [DataMember]
         private int _generatedAmount;
+        [DataMember]
         private IList<int> _sequence;
+        [DataMember]
         private Guid _userGuid;
+        [DataMember]
         private User _user;
         #endregion
 
@@ -65,7 +75,7 @@ namespace Randomizer.Models
 
         public Guid UserGuid { get => _userGuid; set => _userGuid = value; }
 
-        internal void DeleteDatabaseValues()
+        public void DeleteDatabaseValues()
         {
             _user = null;
         }
