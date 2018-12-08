@@ -146,7 +146,7 @@ namespace Randomizer.ViewModels
                         Request request = new Request(_startNumber, _endNumber, StationManager.CurrentUser);
                         if (!request.IsValidRequest())
                         {
-                            MessageBox.Show(String.Format("Wrongs numbers! Start number should be greater or equal 0, end number should be greater than 0 and start number"));
+                            MessageBox.Show(String.Format("Wrongs numbers! Start number should be greater or equal 0, end number should be greater than 0 and start number. Both numbers must be integers"));
                             LoaderManager.Instance.HideLoader();
                             return;
                         }

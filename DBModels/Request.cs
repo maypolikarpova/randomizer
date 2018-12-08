@@ -91,10 +91,14 @@ namespace Randomizer.DBModels
             _startNumber = startNumber;
             _endNumber = endNumber;
             _generatedAmount = _endNumber - _startNumber + 1;
-            _sequence = GenerateSequence();
-            _user = user;
-            _userGuid = user.Guid;
-            user.Requests.Add(this);
+            if(IsValidRequest())
+            {
+                _sequence = GenerateSequence();
+                _user = user;
+                _userGuid = user.Guid;
+                user.Requests.Add(this);
+
+            }
         }
 
         private Request()
@@ -112,10 +116,7 @@ namespace Randomizer.DBModels
             IList<int> sequence = new List<int>();
             IList<int> initial = new List<int>();
             Random random = new Random();
-
-            new Thread(() =>
-            {
-               Thread.CurrentThread.IsBackground = true;
+            
 
                 for (int i = _startNumber; i < _endNumber; i++)
                 {
@@ -134,7 +135,6 @@ namespace Randomizer.DBModels
                     }
                     sequence.Add(initial[position]);
                 }
-            }).Start();
             return sequence;
         }
 
@@ -142,7 +142,9 @@ namespace Randomizer.DBModels
         {
             return _startNumber >= 0
                 && _endNumber > 0 
-                &&_startNumber < _endNumber;
+                && _startNumber < _endNumber
+                && _endNumber < int.MaxValue
+                && _startNumber < int.MaxValue;
         }
 
         #region EntityFrameworkConfiguration

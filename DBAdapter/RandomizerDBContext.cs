@@ -1,11 +1,7 @@
 ﻿using Randomizer.DBAdapter.Migrations;
 using Randomizer.DBModels;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Randomizer.DBAdapter
 {
